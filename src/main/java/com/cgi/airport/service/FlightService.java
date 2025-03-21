@@ -3,6 +3,7 @@ package com.cgi.airport.service;
 import com.cgi.airport.exception.FlightAlreadyExistsException;
 import com.cgi.airport.model.Flight;
 import com.cgi.airport.model.FlightBody;
+import com.cgi.airport.model.Seat;
 import com.cgi.airport.repository.FlightRepository;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,11 @@ public class FlightService {
 
     public List<Flight> filterByDepartureLoc(String departureLoc) {
         return flightRepository.findByDepartureLoc(departureLoc);
+    }
+
+    // Randomly generates seats that are taken.
+    public void generateRandomSeats(Flight flight) {
+
     }
 
 

@@ -3,6 +3,7 @@ package com.cgi.airport.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "flights")
@@ -24,6 +25,9 @@ public class Flight {
 
     @Column(name = "price", nullable = false)
     private double price;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats;
 
     public long getId() {
         return id;
@@ -63,5 +67,13 @@ public class Flight {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 }
