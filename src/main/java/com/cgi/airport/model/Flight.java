@@ -13,17 +13,14 @@ public class Flight {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "leavingDate", nullable = false)
+    @Column(name = "leaving_date", nullable = false)
     private LocalDate leavingDate;
 
-    @Column(name = "returningDate", nullable = false)
-    private LocalDate returningDate;
+    @Column(name = "destination_loc", nullable = false)
+    private String destinationLoc;
 
-    @Column(name = "destination", nullable = false)
-    private String destination;
-
-    @Column(name = "departure", nullable = false)
-    private String departure;
+    @Column(name = "departure_loc", nullable = false)
+    private String departureLoc;
 
     @Column(name = "price", nullable = false)
     private double price;
@@ -44,28 +41,20 @@ public class Flight {
         this.leavingDate = leavingDate;
     }
 
-    public LocalDate getReturningDate() {
-        return returningDate;
+    public String getDestinationLoc() {
+        return destinationLoc;
     }
 
-    public void setReturningDate(LocalDate returningDate) {
-        this.returningDate = returningDate;
+    public void setDestinationLoc(String destination) {
+        this.destinationLoc = destination;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getDepartureLoc() {
+        return departureLoc;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
+    public void setDepartureLoc(String departure) {
+        this.departureLoc = departure;
     }
 
     public double getPrice() {

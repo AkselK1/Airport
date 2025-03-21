@@ -5,25 +5,21 @@ import java.time.LocalDate;
 public class FlightBody {
 
     private LocalDate leavingDate;
-    private LocalDate returningDate;
-    private String destination;
-    private String departure;
+    private String destinationLoc;
+    private String departureLoc;
     private double price;
 
     public LocalDate getLeavingDate() {
         return leavingDate;
     }
 
-    public LocalDate getReturningDate() {
-        return returningDate;
+
+    public String getDestinationLoc() {
+        return destinationLoc;
     }
 
-    public String getDestination() {
-        return destination;
-    }
-
-    public String getDeparture() {
-        return departure;
+    public String getDepartureLoc() {
+        return departureLoc;
     }
 
     public double getPrice() {

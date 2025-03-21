@@ -18,6 +18,7 @@ public class FlightController {
 
     @GetMapping("/flights")
     public List<Flight> getFlights() {
-        return flightService.getAllFlights();
+        //return flightService.getAllFlights();
+        return flightService.filterByPrice(1000);
     }
 }

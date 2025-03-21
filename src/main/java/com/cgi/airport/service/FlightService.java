@@ -39,11 +39,10 @@ public class FlightService {
      */
 
     public Flight saveFlight(Flight inputFlight) throws FlightAlreadyExistsException {
-        if (flightRepository.findByLeavingDateAndReturningDateAndDestinationAndDepartureAndPrice(
+        if (flightRepository.findByLeavingDateAndDestinationLocAndDepartureLocAndPrice(
                 inputFlight.getLeavingDate(),
-                inputFlight.getReturningDate(),
-                inputFlight.getDestination(),
-                inputFlight.getDeparture(),
+                inputFlight.getDestinationLoc(),
+                inputFlight.getDepartureLoc(),
                 inputFlight.getPrice()).isPresent()) {
             throw new FlightAlreadyExistsException("Flight with given details already exists!");
         }
@@ -59,4 +58,22 @@ public class FlightService {
 
         return savedFlight;
     }
+
+    public List<Flight> filterByLeavingDate(LocalDate date) {
+        return flightRepository.findByLeavingDate(date);
+    }
+
+    public List<Flight> filterByPrice(double price) {
+        return flightRepository.findByPriceLessThan(price);
+    }
+
+    public List<Flight> filterByDestinationLoc(String destinationLoc) {
+        return flightRepository.findByDestinationLoc(destinationLoc);
+    }
+
+    public List<Flight> filterByDepartureLoc(String departureLoc) {
+        return flightRepository.findByDepartureLoc(departureLoc);
+    }
+
+
 }
