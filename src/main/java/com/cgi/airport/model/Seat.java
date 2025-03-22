@@ -19,9 +19,9 @@ public class Seat {
     @Column(name = "availability", nullable = false)
     private boolean availability = true;
 
-    // The id of the flight, that this seat belongs to
-    @Column(name = "flight_id", nullable = false)
-    private long flightId;
+    // true = more leg room, false = less leg room
+    @Column(name = "more_room", nullable = false)
+    private boolean moreRoom = false;
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
@@ -51,19 +51,19 @@ public class Seat {
         this.availability = availability;
     }
 
-    public long getFlightId() {
-        return flightId;
-    }
-
-    public void setFlightId(long flightId) {
-        this.flightId = flightId;
-    }
-
     public Flight getFlight() {
         return flight;
     }
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    public boolean isMoreRoom() {
+        return moreRoom;
+    }
+
+    public void setMoreRoom(boolean moreRoom) {
+        this.moreRoom = moreRoom;
     }
 }

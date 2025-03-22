@@ -20,5 +20,4 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     List<Flight> findByDestinationLoc(String destination);
 
     List<Flight> findByDepartureLoc(String departure);
-
 }
