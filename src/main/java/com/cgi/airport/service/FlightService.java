@@ -2,10 +2,7 @@ package com.cgi.airport.service;
 
 import com.cgi.airport.exception.FlightAlreadyExistsException;
 import com.cgi.airport.model.Flight;
-import com.cgi.airport.model.FlightBody;
-import com.cgi.airport.model.Seat;
 import com.cgi.airport.repository.FlightRepository;
-import com.cgi.airport.repository.SeatRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,9 +29,7 @@ public class FlightService {
             throw new FlightAlreadyExistsException("Flight with given details already exists!");
         }
 
-        Flight savedFlight = flightRepository.save(inputFlight);
-
-        return savedFlight;
+        return flightRepository.save(inputFlight);
     }
 
     public List<Flight> filterByLeavingDate(LocalDate date) {

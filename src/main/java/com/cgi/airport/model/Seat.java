@@ -19,9 +19,17 @@ public class Seat {
     @Column(name = "availability", nullable = false)
     private boolean availability = true;
 
-    // true = more leg room, false = less leg room
+    // true = more leg room, false = no extra leg room
     @Column(name = "more_room", nullable = false)
     private boolean moreRoom = false;
+
+    // true = is business class, false = not business class
+    @Column(name = "business_class", nullable = false)
+    private boolean businessClass = false;
+
+    // true == is a window seat, false == is not a window seat
+    @Column(name = "window_seat", nullable = false)
+    private boolean windowSeat = false;
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
@@ -65,5 +73,21 @@ public class Seat {
 
     public void setMoreRoom(boolean moreRoom) {
         this.moreRoom = moreRoom;
+    }
+
+    public boolean isBusinessClass() {
+        return businessClass;
+    }
+
+    public void setBusinessClass(boolean businessClass) {
+        this.businessClass = businessClass;
+    }
+
+    public boolean isWindowSeat() {
+        return windowSeat;
+    }
+
+    public void setWindowSeat(boolean windowSeat) {
+        this.windowSeat = windowSeat;
     }
 }
