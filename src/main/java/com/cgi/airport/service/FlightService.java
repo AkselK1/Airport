@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -46,5 +47,15 @@ public class FlightService {
 
     public List<Flight> filterByDepartureLoc(String departureLoc) {
         return flightRepository.findByDepartureLoc(departureLoc);
+    }
+
+    public List<Flight> filterFlights(String departure, String destination, LocalDate leavingDate, Double maxPrice) {
+        List<Flight> allFlights = flightRepository.findAll();
+        return allFlights.stream()
+                .filter(flight -> departure == null || flight.getDepartureLoc().equalsIgnoreCase(departure))
+                .filter(flight -> destination == null || flight.getDestinationLoc().equalsIgnoreCase(destination))
+                .filter(flight -> leavingDate == null || flight.getLeavingDate().equals(leavingDate))
+                .filter(flight -> maxPrice == null || flight.getPrice() <= maxPrice)
+                .collect(Collectors.toList());
     }
 }

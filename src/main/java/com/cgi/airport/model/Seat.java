@@ -1,6 +1,7 @@
 package com.cgi.airport.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -33,6 +34,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
+    @JsonBackReference
     private Flight flight;
 
     public long getId() {

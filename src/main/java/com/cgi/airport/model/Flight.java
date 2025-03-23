@@ -1,5 +1,6 @@
 package com.cgi.airport.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class Flight {
     private double price;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Seat> seats;
 
     public long getId() {

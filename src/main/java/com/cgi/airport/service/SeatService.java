@@ -122,4 +122,7 @@ public class SeatService {
         return row == 7 || row == 8 || row == 9 || row == 28 || row == 29 || row == 30;
     }
 
+    public List<Seat> getSeatsByFlightId(Long flightId) {
+        return seatRepository.findByFlight_Id(flightId);
+    }
 }

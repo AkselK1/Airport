@@ -18,8 +18,8 @@
         Max Price:
         <input v-model.number="maxPrice" type="number" />
       </label>
-
       <button type="submit">Search</button>
+      <button @click.prevent="resetFilters">Clear Filters</button>
     </form>
 
     <h3>Available Flights</h3>
@@ -35,7 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import router from "@/router";
 
 interface Flight {
   id: number
@@ -51,21 +52,61 @@ const destination = ref('')
 const maxPrice = ref<number | null>(null)
 const leavingDate = ref('')
 
+// Fetches flights from back-end
+async function fetchFlights(query: string = '') {
+  const url = `http://localhost:8080/flights${query}`
+  const response = await fetch(url)
+  const data = await response.json()
+  // Convert leavingDate strings to Date objects
+  flights.value = data.map((flight: any) => ({
+    ...flight,
+    leavingDate: new Date(flight.leavingDate)
+  }))
+}
+
+// Called when the user submits the search form
 async function searchFlights() {
-  // Build a query string or separate endpoint
-  let url = 'http://localhost:8080/api/flights'
   const params = new URLSearchParams()
   if (departure.value) params.append('departure', departure.value)
   if (destination.value) params.append('destination', destination.value)
   if (maxPrice.value !== null) params.append('price', String(maxPrice.value))
   if (leavingDate.value) params.append('leavingDate', leavingDate.value)
 
-  const response = await fetch(`${url}?${params.toString()}`)
-  flights.value = await response.json()
+  const queryString = params.toString() ? `?${params.toString()}` : ''
+  await fetchFlights(queryString)
 }
 
-// selectFlight function is called when the user selects a flight
+// Reset filters and fetch all flights
+function resetFilters() {
+  departure.value = ''
+  destination.value = ''
+  maxPrice.value = null
+  leavingDate.value = ''
+  fetchFlights()
+}
+
+// By default, fetch all flights on page load
+onMounted(() => {
+  fetchFlights()
+})
+
+// Called when a flight is selected
 function selectFlight(flight: Flight) {
   console.log('Selected flight:', flight)
+  // Navigate to the seat selection page for the chosen flight
+  router.push(`/seat-selection/${flight.id}`)
 }
 </script>
+
+<style scoped>
+form {
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+button {
+  margin-right: 0.5rem;
+}
+</style>
